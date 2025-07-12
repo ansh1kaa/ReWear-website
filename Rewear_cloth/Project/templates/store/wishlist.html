@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}My Wishlist{% endblock %}
+{% block content %}
+
+<h2>My Wishlist</h2>
+
+{% for item in wishlist_items %}
+  <div>
+    <h4>{{ item.product.title }}</h4>
+    <img src="{{ item.product.main_image.url }}" height="100" />
+    <p>Price: ₹{{ item.product.price }}</p>
+    <form method="post" action="{% url 'store:remove_from_wishlist' item.pk %}">
+      {% csrf_token %}
+      <button type="submit">Remove</button>
+    </form>
+  </div>
+{% empty %}
+  <p>You haven't added anything to your wishlist.</p>
+{% endfor %}
+
+{% endblock %}

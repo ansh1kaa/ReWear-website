@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Rewear{% endblock %}
+
+{% block content %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.errors %}
+          <p style="color:red">{{ field.errors|join:", " }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit">Login</button>
+  </form>
+  <p>Don't have an account? <a href="{% url 'accounts:signup' %}">Sign Up</a></p>
+{% endblock %}

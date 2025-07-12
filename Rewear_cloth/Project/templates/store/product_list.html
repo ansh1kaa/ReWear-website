@@ -1,0 +1,17 @@
+
+{% for product in products %}
+  <div class="product-card">
+    <h3><a href="{% url 'store:product_detail' product.pk %}">{{ product.title }}</a></h3>
+    <img src="{{ product.main_image.url }}" height="150" />
+    <p>₹{{ product.price }}</p>
+
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'store:add_to_cart' product.pk %}">
+      {% csrf_token %}
+      <button type="submit">Add to Cart</button>
+    </form>
+    {% else %}
+      <a href="{% url 'accounts:login' %}">Login to add to cart</a>
+    {% endif %}
+  </div>
+{% endfor %}

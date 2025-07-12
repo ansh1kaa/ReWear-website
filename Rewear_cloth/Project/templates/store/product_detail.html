@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ product.title }}{% endblock %}
+{% block content %}
+<h2>{{ product.title }}</h2>
+<img src="{{ product.main_image.url }}" width="300" />
+<p><strong>Price:</strong> Rs. {{ product.price }}</p>
+<p><strong>Description:</strong> {{ product.description }}</p>
+<p><strong>Category:</strong> {{ product.category }}</p>
+<p><strong>Seller:</strong> {{ product.seller.name }}</p>
+
+<form method="post" action="{% url 'store:add_to_cart' product.pk %}">
+  {% csrf_token %}
+  <button type="submit" class="btn-add-cart">Add to Cart</button>
+</form>
+<form method="post" action="{% url 'store:add_to_wishlist' product.pk %}">
+  {% csrf_token %}
+  <button type="submit">❤️ Add to Wishlist</button>
+</form>
+
+<form action="{% url 'orders:checkout' product.pk %}" method="post">
+  {% csrf_token %}
+  <button type="submit">Buy Now</button>
+</form>
+
+{% endblock %}

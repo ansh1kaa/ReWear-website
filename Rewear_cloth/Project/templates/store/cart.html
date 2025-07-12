@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}My Cart{% endblock %}
+
+{% block content %}
+  <h2 class="cart-title">My Cart</h2>
+
+  {% for item in cart_items %}
+    <div class="cart-item">
+      <img src="{{ item.product.main_image.url }}" class="cart-image" />
+      <div class="cart-info">
+        <h3>{{ item.product.title }}</h3>
+        <p>Price: ₹{{ item.product.price }}</p>
+        <form method="post" action="{% url 'store:remove_from_cart' item.pk %}">
+          {% csrf_token %}
+          <button type="submit" class="btn-remove">Remove</button>
+        </form>
+      </div>
+    </div>
+  {% empty %}
+    <p class="empty-cart">Your cart is empty.</p>
+  {% endfor %}
+{% endblock %}
