@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Rewear{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="logo">Rewear</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'accounts:profile' %}">My Account</a></li>
+          <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'accounts:login' %}">Login</a></li>
+        {% endif %}
+        <li><a href="{% url 'store:product_upload' %}">Upload</a></li>
+        <li><a href="{% url 'store:wishlist' %}">Wishlist</a></li>
+        <li><a href="{% url 'store:cart' %}">Cart</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Banner Section -->
+  <section class="banner">
+    <img src="{% static 'images/banner.jpg' %}" alt="Rewear Banner" class="banner-img">
+  </section>
+
+  <!-- Product Categories Section -->
+  <section class="categories">
+    <h2>Shop by Category</h2>
+    <div class="category-container">
+      <div class="category-card">
+        <img src="{% static 'images/men.jpg' %}" alt="Men" />
+        <p>Men</p>
+      </div>
+      <div class="category-container">
+      <div class="category-card">
+        <img src="{% static 'images/men.jpg' %}" alt="Men" />
+        <p>Men</p>
+      </div>
+      <div class="category-card">
+        <img src="{% static 'images/women.jpg' %}" alt="Women" />
+        <p>Women</p>
+      </div>
+      <div class="category-card">
+        <img src="{% static 'images/kids.jpg' %}" alt="Kids" />
+        <p>Kids</p>
+      </div>
+      <div class="category-card">
+        <img src="{% static 'images/footwear.jpg' %}" alt="Footwear" />
+        <p>Footwear</p>
+      </div>
+      <div class="category-card">
+        <img src="{% static 'images/accessories.jpg' %}" alt="Accessories" />
+        <p>Accessories</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flash Messages -->
+  <div class="flash-container">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="flash-message">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <!-- Content Area -->
+  <main class="main-content">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Rewear. All rights reserved.</p>
+  </footer>
+</body>
+</html>
